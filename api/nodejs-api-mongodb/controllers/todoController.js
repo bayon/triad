@@ -11,13 +11,28 @@ var TodoModel = mongoose.model('Todo',todoSchema);
 var urlencoded = bodyParser.urlencoded({extended: false});
 
 module.exports = function(app) {
-    
+    // ALLOW CORS 
+    app.use(function(req, res, next) {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        next();
+      });
     // GET
     app.get('/todo',function(req,res){
         //res.send('yep you are here at app get...todo...');
         TodoModel.find({},function(err,data){
             if(err) throw err; 
             res.render('todos',{todos: data});
+        });
+
+    });
+    app.get('/api/todo',function(req,res){
+        //res.send('yep you are here at app get...todo...');
+        TodoModel.find({},function(err,data){
+            if(err) throw err; 
+            //res.render('todos',{todos: data});
+            res.setHeader('Content-Type', 'application/json');
+            res.send(JSON.stringify({ todos: data }));
         });
 
     });
