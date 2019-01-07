@@ -26,6 +26,23 @@ module.exports = function(app) {
         });
 
     });
+   
+    //POST
+    app.post('/todo',urlencoded, function(req,res){
+        var newTodo = TodoModel(req.body).save(function(err,data){
+            if(err) throw err;
+                res.json(data);
+        }); 
+    });
+
+    // DELETE
+    app.delete('/todo/:item',function(req,res){
+        TodoModel.find({item:req.params.item.replace(/\-/g," ")}).remove(function(err,data){
+            if(err) throw err;
+            res.json(data);
+        });
+    });
+    // API ====================================
     app.get('/api/todo',function(req,res){
         //res.send('yep you are here at app get...todo...');
         TodoModel.find({},function(err,data){
@@ -37,7 +54,7 @@ module.exports = function(app) {
 
     });
     //POST
-    app.post('/todo',urlencoded, function(req,res){
+    app.post('/api/todo',urlencoded, function(req,res){
         var newTodo = TodoModel(req.body).save(function(err,data){
             if(err) throw err;
                 res.json(data);
@@ -45,7 +62,7 @@ module.exports = function(app) {
     });
 
     // DELETE
-    app.delete('/todo/:item',function(req,res){
+    app.delete('/api/todo/:item',function(req,res){
         TodoModel.find({item:req.params.item.replace(/\-/g," ")}).remove(function(err,data){
             if(err) throw err;
             res.json(data);
