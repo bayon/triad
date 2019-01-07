@@ -1,25 +1,49 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import List from './components/List';
 
 class App extends Component {
+
+  constructor () {
+    super()
+    this.state = {
+      snipData: [],
+    }
+  }
+
+  componentDidMount() {
+    fetch('http://www.forteworks.com/api/simple-api.php/snips/javascript')
+    .then(results => {
+      return results.json();
+       
+    }).then(data => {
+      console.log(data);
+      
+      let snipData = data.map((snip) => {
+        return(
+          <li key={snip.id} className="collection-item" >
+            
+            <div className="list-item-text">{snip.desc}</div>
+            <div className="list-item-snip"><span dangerouslySetInnerHTML={{__html: unescape(snip.snip)}} /></div>
+            
+            
+          </li>
+        )
+      })
+      this.setState({snipData: snipData});
+      
+      console.log("state", this.state.snipData);
+    })
+  }
+   
+  
   render() {
+     
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        
+        <List listHeader="snips" listData={this.state.snipData}></List>
+
       </div>
     );
   }
