@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 //import List from './components/List';
+//var bodyParser = require('body-parser');
+//urlencoded 
+//var urlencoded = bodyParser.urlencoded({extended: false});
 
 class App extends Component {
 
@@ -22,7 +25,6 @@ class App extends Component {
        
     }).then(data => {
       
-       
       this.setState({datas: data.todos});
       //console.log("state", this.state.todoData);
     })
@@ -36,8 +38,11 @@ fSubmit = (e) => {
   //instantiate local vars with 'refs' attributes from inputs.
   let datas = this.state.datas;
   let item = this.refs.item.value;
+  console.log('on submit');
   console.log('this state datas',datas);
   console.log(typeof datas);
+  console.log('the item');
+  console.log(item);
 
   if(this.state.act === 0){ 
     //new record
@@ -45,6 +50,32 @@ fSubmit = (e) => {
       item
     }
     datas.push(data);
+    console.log('the data is this before the post:',data);
+    ///////////////
+    var url = "http://ec2-3-85-215-230.compute-1.amazonaws.com:3000/api/todo/";
+    var headers = {'content-type':'application/json'};
+    
+    var params = {
+      _id: '',
+      item: data,
+      _v: ''
+    };
+    
+    var formData = new FormData();
+    
+    for (var k in params) {
+        formData.append(k, params[k]);
+    }
+    
+    var request = {
+        method: 'POST',
+        headers: headers,
+        body: formData
+    };
+    
+    fetch(url, request);
+   
+    /////////////
   }else{ 
     //update record
     let index = this.state.index;
