@@ -1,0 +1,1 @@
+Notes for Reactjs website portion of Triad project.
