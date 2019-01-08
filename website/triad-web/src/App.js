@@ -27,7 +27,7 @@ class App extends Component {
     }).then(data => {
       
       this.setState({datas: data.todos});
-      //console.log("state", this.state.todoData);
+      console.log("data.todos", data.todos);
     })
 
     this.refs.item.focus();
@@ -39,6 +39,8 @@ fSubmit = (e) => {
   //instantiate local vars with 'refs' attributes from inputs.
   let datas = this.state.datas;
   let item = this.refs.item.value;
+  let _id = this.refs._id.value;
+  let __v = 0;
   console.log('on submit');
   console.log('this state datas',datas);
   console.log(typeof datas);
@@ -48,112 +50,25 @@ fSubmit = (e) => {
   if(this.state.act === 0){ 
     //new record
     let data = {
-      item
+      _id : _id,
+      item: item,
+      __v : __v
     }
     datas.push(data);
     console.log('the data is this before the post:',data);
     ///////////////
-     
-    const itemObj = {
-        item: data.item
-        
-    }
-    axios.post('http://ec2-3-85-215-230.compute-1.amazonaws.com/todo/', itemObj)
-    .then(res => console.log(res.data));
-     
-    
-    /*
-    // AXIOS not complete
-      const serverport = {
-          name: "http://ec2-3-85-215-230.compute-1.amazonaws.com",
-          port: "3000"
+    //http://ec2-3-85-215-230.compute-1.amazonaws.com:3000/api/todo/
+    fetch('http://ec2-3-85-215-230.compute-1.amazonaws.com:3000/api/todo/', {
+      method: 'post',
+      headers: {'Content-Type':'application/json'},
+      body: {
+       "item": data.item,
+       "_id" : "clutches",
+       "value": "wtf"
       }
-      axios.post('http://ec2-3-85-215-230.compute-1.amazonaws.com:3000/api/todo/', serverport)
-      .then(res => console.log(res.data));
-      
-      this.setState({
-          name: '',
-          port: ''
-      });
-      
-*/
-    // Nodejs Native
-  /*
-    var qs = require("querystring");
-    var http = require("http");
+     });
     
-    var options = {
-      "method": "POST",
-      "hostname": [
-        "ec2-3-85-215-230",
-        "compute-1",
-        "amazonaws",
-        "com"
-      ],
-      "port": "3000",
-      "path": [
-        "api",
-        "todo",
-        ""
-      ],
-      "headers": {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "cache-control": "no-cache"
-      }
-    };
-    
-    var req = http.request(options, function (res) {
-      var chunks = [];
-    
-      res.on("data", function (chunk) {
-        chunks.push(chunk);
-      });
-    
-      res.on("end", function () {
-        var body = Buffer.concat(chunks);
-        console.log(body.toString());
-      });
-    });
-    
-    req.write(qs.stringify({ item: 'snap', undefined: undefined }));
-    req.end();
-*/
-
-//// javascript XHR  did NOT work
- /*
-var data = "item=testomatic&undefined=";
-
-var xhr = new XMLHttpRequest();
-xhr.withCredentials = true;
-
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === 4) {
-    console.log(this.responseText);
-  }
-});
-
-xhr.open("POST", "http://ec2-3-85-215-230.compute-1.amazonaws.com:3000/api/todo/");
-xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-xhr.setRequestHeader("cache-control", "no-cache");
-
-xhr.send(data);
-*/
-
-
-
-     /* AXIOS not complete
-      const serverport = {
-          name: "http://ec2-3-85-215-230.compute-1.amazonaws.com",
-          port: "3000"
-      }
-      axios.post('http://ec2-3-85-215-230.compute-1.amazonaws.com:3000/api/todo/', serverport)
-      .then(res => console.log(res.data));
-      
-      this.setState({
-          name: '',
-          port: ''
-      });
-      */
+   
    
     /////////////
   }else{ 
@@ -219,8 +134,16 @@ render() {
   return (
     <div className="App">
        <h2>{this.state.title}</h2>
+       <ul>
+         <li>start server: ssh -i "bayon_aws_2019.pem" ubuntu@ec2-3-85-215-230.compute-1.amazonaws.com</li>
+         <li> leave it running: 1)  ctrl+z  2) $ bg %1  3) $ exit</li>
+         <li>currently: works remotely, but locally does not post data to mongodb on mlab.</li>
+         <li>next</li>
+       </ul>
        <form ref='myForm' className='myForm'>
+        <input type="hidden" ref="_id"  placeholder="id" className="formField" /> 
           <input type="text" ref="item"  placeholder="your item" className="formField" />
+          <input type="hidden" ref="__v"  placeholder="id" className="formField" /> 
           <button onClick={this.fSubmit} className="myButton">submit</button>
        </form>
 
