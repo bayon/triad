@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import axios from 'axios';
+//import axios from 'axios';
 //import List from './components/List';
 //var bodyParser = require('body-parser');
 //urlencoded 
@@ -53,8 +53,7 @@ fSubmit = (e) => {
     datas.push(data);
     console.log('the data is this before the post:',data);
     ///////////////
-    
-     
+      // AXIOS not complete
       const serverport = {
           name: "http://ec2-3-85-215-230.compute-1.amazonaws.com",
           port: "3000"
@@ -66,7 +65,85 @@ fSubmit = (e) => {
           name: '',
           port: ''
       });
- 
+      
+
+    // Nodejs Native
+  /*
+    var qs = require("querystring");
+    var http = require("http");
+    
+    var options = {
+      "method": "POST",
+      "hostname": [
+        "ec2-3-85-215-230",
+        "compute-1",
+        "amazonaws",
+        "com"
+      ],
+      "port": "3000",
+      "path": [
+        "api",
+        "todo",
+        ""
+      ],
+      "headers": {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "cache-control": "no-cache"
+      }
+    };
+    
+    var req = http.request(options, function (res) {
+      var chunks = [];
+    
+      res.on("data", function (chunk) {
+        chunks.push(chunk);
+      });
+    
+      res.on("end", function () {
+        var body = Buffer.concat(chunks);
+        console.log(body.toString());
+      });
+    });
+    
+    req.write(qs.stringify({ item: 'snap', undefined: undefined }));
+    req.end();
+*/
+
+//// javascript XHR  did NOT work
+ /*
+var data = "item=testomatic&undefined=";
+
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === 4) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "http://ec2-3-85-215-230.compute-1.amazonaws.com:3000/api/todo/");
+xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+xhr.setRequestHeader("cache-control", "no-cache");
+
+xhr.send(data);
+*/
+
+
+
+     /* AXIOS not complete
+      const serverport = {
+          name: "http://ec2-3-85-215-230.compute-1.amazonaws.com",
+          port: "3000"
+      }
+      axios.post('http://ec2-3-85-215-230.compute-1.amazonaws.com:3000/api/todo/', serverport)
+      .then(res => console.log(res.data));
+      
+      this.setState({
+          name: '',
+          port: ''
+      });
+      */
    
     /////////////
   }else{ 

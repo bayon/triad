@@ -57,3 +57,41 @@ var req = http.request(options, function (res) {
 req.write(qs.stringify({ item: 'snap', undefined: undefined }));
 req.end();
 //////////////
+//jQuery Ajax
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://ec2-3-85-215-230.compute-1.amazonaws.com:3000/api/todo/",
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/x-www-form-urlencoded",
+      "cache-control": "no-cache",
+      "Postman-Token": "894f5e68-af83-4b24-bb93-fab33d21dcd5"
+    },
+    "data": {
+      "item": "snap"
+    }
+  }
+  
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
+
+//// javascript XHR
+var data = "item=snap&undefined=";
+
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === 4) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "http://ec2-3-85-215-230.compute-1.amazonaws.com:3000/api/todo/");
+xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+xhr.setRequestHeader("cache-control", "no-cache");
+xhr.setRequestHeader("Postman-Token", "1cff5473-c318-4beb-99ee-f63f936c4cdc");
+
+xhr.send(data);
