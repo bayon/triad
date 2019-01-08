@@ -57,12 +57,14 @@ module.exports = function(app) {
     });
     //POST
     app.post('/api/todo',urlencoded, function(req,res){
-        
+        res.send(req.body);
+        /*
         var newTodo = TodoModel(req.body).save(function(err,data){
             if(err) throw err;
 
                 res.json(data);
         }); 
+        */
     });
 
     // DELETE
