@@ -62,9 +62,8 @@ fSubmit = (e) => {
       method: 'post',
       headers: {'Content-Type':'application/x-www-form-urlencoded'},
       body: {
-       "item": data.item,
-       "_id" : data._id,
-       "__v": data.__v
+       "item": data.item
+       
       }
      }).then( function(data){
        console.log(data);
