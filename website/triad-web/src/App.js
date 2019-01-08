@@ -60,7 +60,7 @@ fSubmit = (e) => {
     //http://ec2-3-85-215-230.compute-1.amazonaws.com:3000/api/todo/
     fetch('http://ec2-3-85-215-230.compute-1.amazonaws.com:3000/api/todo/', {
       method: 'post',
-      headers: {'Content-Type':'application/json'},
+      headers: {'Content-Type':'application/x-www-form-urlencoded'},
       body: {
        "item": data.item,
        "_id" : data._id,
