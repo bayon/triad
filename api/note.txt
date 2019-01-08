@@ -1,1 +1,6 @@
+
+
 Notes for the Nodejs api.
+https://www.youtube.com/watch?v=f7zXuZRsCTk
+net ninja check out this tutorial.
+
