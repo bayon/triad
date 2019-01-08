@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import axios from 'axios';
 //import List from './components/List';
 //var bodyParser = require('body-parser');
 //urlencoded 
@@ -52,28 +53,20 @@ fSubmit = (e) => {
     datas.push(data);
     console.log('the data is this before the post:',data);
     ///////////////
-    var url = "http://ec2-3-85-215-230.compute-1.amazonaws.com:3000/api/todo/";
-    var headers = {'content-type':'application/json'};
     
-    var params = {
-      _id: '',
-      item: data,
-      _v: ''
-    };
-    
-    var formData = new FormData();
-    
-    for (var k in params) {
-        formData.append(k, params[k]);
-    }
-    
-    var request = {
-        method: 'POST',
-        headers: headers,
-        body: formData
-    };
-    
-    fetch(url, request);
+     
+      const serverport = {
+          name: "http://ec2-3-85-215-230.compute-1.amazonaws.com",
+          port: "3000"
+      }
+      axios.post('http://ec2-3-85-215-230.compute-1.amazonaws.com:3000/api/todo/', serverport)
+      .then(res => console.log(res.data));
+      
+      this.setState({
+          name: '',
+          port: ''
+      });
+ 
    
     /////////////
   }else{ 
