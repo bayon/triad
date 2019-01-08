@@ -27,7 +27,7 @@ class App extends Component {
     }).then(data => {
       
       this.setState({datas: data.todos});
-      console.log("data.todos", data.todos);
+      //console.log("data.todos", data.todos);
     })
 
     this.refs.item.focus();
@@ -41,11 +41,11 @@ fSubmit = (e) => {
   let item = this.refs.item.value;
   let _id = this.refs._id.value;
   let __v = 0;
-  console.log('on submit');
+  /*console.log('on submit');
   console.log('this state datas',datas);
   console.log(typeof datas);
   console.log('the item');
-  console.log(item);
+  console.log(item);*/
 
   if(this.state.act === 0){ 
     //new record
@@ -60,12 +60,13 @@ fSubmit = (e) => {
     //http://ec2-3-85-215-230.compute-1.amazonaws.com:3000/api/todo/
     fetch('http://ec2-3-85-215-230.compute-1.amazonaws.com:3000/api/todo/', {
       method: 'post',
-      headers: {'Content-Type':'application/json'},
+      headers: {'Content-Type':'application/x-www-form-urlencoded'},
       body: {
-       "item": data.item,
-       "_id" : "clutches",
-       "value": "wtf"
+       "item": data.item
+       
       }
+     }).then( function(data){
+       console.log(data);
      });
     
    
