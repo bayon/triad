@@ -53,7 +53,17 @@ fSubmit = (e) => {
     datas.push(data);
     console.log('the data is this before the post:',data);
     ///////////////
-      // AXIOS not complete
+     
+    const itemObj = {
+        item: data.item
+        
+    }
+    axios.post('http://ec2-3-85-215-230.compute-1.amazonaws.com/todo/', itemObj)
+    .then(res => console.log(res.data));
+     
+    
+    /*
+    // AXIOS not complete
       const serverport = {
           name: "http://ec2-3-85-215-230.compute-1.amazonaws.com",
           port: "3000"
@@ -66,7 +76,7 @@ fSubmit = (e) => {
           port: ''
       });
       
-
+*/
     // Nodejs Native
   /*
     var qs = require("querystring");
