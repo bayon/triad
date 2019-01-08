@@ -27,7 +27,7 @@ class App extends Component {
     }).then(data => {
       
       this.setState({datas: data.todos});
-      console.log("data.todos", data.todos);
+      //console.log("data.todos", data.todos);
     })
 
     this.refs.item.focus();
@@ -41,11 +41,11 @@ fSubmit = (e) => {
   let item = this.refs.item.value;
   let _id = this.refs._id.value;
   let __v = 0;
-  console.log('on submit');
+  /*console.log('on submit');
   console.log('this state datas',datas);
   console.log(typeof datas);
   console.log('the item');
-  console.log(item);
+  console.log(item);*/
 
   if(this.state.act === 0){ 
     //new record
@@ -63,9 +63,11 @@ fSubmit = (e) => {
       headers: {'Content-Type':'application/json'},
       body: {
        "item": data.item,
-       "_id" : "clutches",
-       "value": "wtf"
+       "_id" : data._id,
+       "__v": data.__v
       }
+     }).then( function(data){
+       console.log(data);
      });
     
    
